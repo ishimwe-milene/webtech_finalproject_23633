@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CRM-SignUp</title>
+    <link rel="stylesheet" href="/css/style2.css"> <!-- Removed extra space after rel="stylesheet" -->
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <h1>Sign Up</h1> <!-- Updated to use h1 for consistency with CSS -->
+            <label>First Name</label> <!-- Corrected label text for consistency -->
+            <input type="text" th:field="*{firstName}" placeholder="First Name" /><br /><br />
+            <label>Last Name</label>
+            <input type="text" th:field="*{lastName}" placeholder="Last Name" /><br /><br />
+            <label>Phone Number</label> <!-- Updated label text for consistency -->
+            <input type="text" th:field="*{mobile}" placeholder="Mobile Number" /><br /><br />
+            <label>Email</label>
+            <input type="text" th:field="*{email}" placeholder="Email" /><br /><br />
+            <label>Password</label>
+            <input type="password" th:field="*{password}" placeholder="Password" /><br /><br />
+
+            <select th:field="*{role}" required>
+                <option value="">Select</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+            </select><br /><br />
+            <button type="submit">Register</button> If you have an account <a th:href="@{/login}" th:text="' Sign in →'"></a><br />
+
+            <span th:utext="${successMessage}"></span>
+            <div th:if="${bindingResult!=null && bindingResult.getAllErrors()!=null}">
+                <ul th:each="data : ${bindingResult.getAllErrors()}">
+                    <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
